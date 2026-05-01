@@ -26,6 +26,11 @@ jobs:
         .\vcpkg\vcpkg install --triplet=x64-windows
       shell: cmd
       
+    - name: Build solution
+      run: |
+        msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /p:VcpkgEnableManifest=true /p:VcpkgManifestInstallVcpkg=true /verbosity:normal
+      shell: cmd
+      
     - name: Restore NuGet packages
       run: |
         nuget restore boykisser-clan.sln
