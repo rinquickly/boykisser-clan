@@ -38,8 +38,7 @@ jobs:
 
     - name: Build solution
       run: |
-        set INCLUDE=%VCPKG_ROOT%\installed\x64-windows\include;%INCLUDE%
-        msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /verbosity:normal
+        msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /p:AdditionalIncludeDirectories="${{ env.VCPKG_ROOT }}\installed\x64-windows\include" /verbosity:normal
       shell: cmd
       env:
         VCPKG_ROOT: ${{ env.VCPKG_ROOT }}
