@@ -22,13 +22,8 @@ jobs:
       run: |
         git clone https://github.com/microsoft/vcpkg.git
         .\vcpkg\bootstrap-vcpkg.bat
-        .\vcpkg\vcpkg integrate install
+        set VCPKG_ROOT=%CD%\vcpkg
         .\vcpkg\vcpkg install --triplet=x64-windows
-      shell: cmd
-      
-    - name: Build solution
-      run: |
-        msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /p:VcpkgEnableManifest=true /p:VcpkgManifestInstallVcpkg=true /verbosity:normal
       shell: cmd
       
     - name: Restore NuGet packages
@@ -38,6 +33,7 @@ jobs:
       
     - name: Build solution
       run: |
+        set VCPKG_ROOT=%CD%\vcpkg
         msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /verbosity:normal
       shell: cmd
       
