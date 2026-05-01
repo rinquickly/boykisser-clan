@@ -52,9 +52,9 @@ jobs:
         tag_name: v${{ github.run_number }}
         name: Build ${{ github.run_number }}
         files: |
-          boykisser-clan\build\Release\boykisser-clan.exe
-          boykisserclan\build\Release\net8.0-windows\boykisserclan.exe
-          boykisserclan\build\Release\net8.0-windows\boykisserclan.dll
+          boykisser-clan/build/Release/boykisser-clan.exe
+          boykisser-clan/build/Release/net8.0-windows/boykisser-clan.exe
+          boykisser-clan/build/Release/net8.0-windows/boykisser-clan.dll
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
