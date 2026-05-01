@@ -26,8 +26,15 @@ jobs:
         .\vcpkg\bootstrap-vcpkg.bat
         .\vcpkg\vcpkg install --triplet=x64-windows
         echo "VCPKG_ROOT=%CD%\vcpkg" >> $GITHUB_ENV
-        dir %CD%\vcpkg\installed\x64-windows\include\
       shell: cmd
+      
+    - name: Debug vcpkg
+      run: |
+        echo VCPKG_ROOT is: %VCPKG_ROOT%
+        dir %VCPKG_ROOT%\installed\x64-windows\include\
+      shell: cmd
+      env:
+        VCPKG_ROOT: ${{ env.VCPKG_ROOT }}
 
     - name: Restore NuGet packages
       run: |
