@@ -30,9 +30,14 @@ jobs:
         nuget restore boykisser-clan.sln
       shell: cmd
 
-    - name: Build solution
+    - name: Build C++ project
       run: |
-        msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /p:VcpkgEnableManifest=true /verbosity:normal
+        msbuild boykisser-clan\boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /p:VcpkgEnableManifest=true /verbosity:normal
+      shell: cmd
+
+    - name: Build C# project
+      run: |
+        msbuild boykisserclan\boykisserclan.csproj /p:Configuration=Release /p:Platform=x64 /verbosity:normal
       shell: cmd
       
     - name: Create Release
@@ -42,10 +47,8 @@ jobs:
         tag_name: v${{ github.run_number }}
         name: Build ${{ github.run_number }}
         files: |
-          **/x64/Release/*.exe
-          **/Release/*.exe
-          boykisserclan/bin/Release/**/*.exe
-          boykisserclan/bin/x64/Release/**/*.exe
-          build/Release/**/*.exe
+          boykisser-clan\build\Release\boykisser-clan.exe
+          boykisserclan\build\Release\net8.0-windows\boykisserclan.exe
+          boykisserclan\build\Release\net8.0-windows\boykisserclan.dll
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
