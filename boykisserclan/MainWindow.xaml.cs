@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Microsoft.Win32;
 
-namespace boykisser-clanUI
+namespace boykisserclan
 {
 	public partial class MainWindow : Window
 	{

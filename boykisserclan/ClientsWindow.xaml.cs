@@ -6,7 +6,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using System.Net.Http;
 
-namespace boykisser-clanUI
+namespace boykisserclan
 {
 	public partial class ClientsWindow : Window
 	{

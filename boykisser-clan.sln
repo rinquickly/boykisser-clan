@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "boykisser-clan", "boykisser-clan\boykisser-clan.vcxproj", "{DFA6B21C-4DF6-4655-93C7-DCBB5E63CC66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "boykisser-clanUI", "boykisser-clanUI\boykisser-clanUI.csproj", "{42F60DE4-73A7-4BE5-8265-4849C9D8337A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "boykisserclan", "boykisserclan\boykisserclan.csproj", "{42F60DE4-73A7-4BE5-8265-4849C9D8337A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

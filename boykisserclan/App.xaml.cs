@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace boykisser-clanUI
+namespace boykisserclan
 {
 	/// <summary>
 	/// Interaction logic for App.xaml

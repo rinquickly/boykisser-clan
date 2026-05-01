@@ -44,7 +44,8 @@ jobs:
         files: |
           **/x64/Release/*.exe
           **/Release/*.exe
-          boykisser-clanUI/bin/Release/**/*.exe
-          boykisser-clanUI/bin/x64/Release/**/*.exe
+          boykisserclan/bin/Release/**/*.exe
+          boykisserclan/bin/x64/Release/**/*.exe
+          build/Release/**/*.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

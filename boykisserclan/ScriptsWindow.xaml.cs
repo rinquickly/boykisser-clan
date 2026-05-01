@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace boykisser-clanUI
+namespace boykisserclan
 {
 	public partial class ScriptsWindow : Window
 	{
