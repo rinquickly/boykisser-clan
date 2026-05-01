@@ -23,12 +23,25 @@ jobs:
         git clone https://github.com/microsoft/vcpkg.git
         .\vcpkg\bootstrap-vcpkg.bat
         .\vcpkg\vcpkg install openssl:x64-windows zstd:x64-windows xxhash:x64-windows
-        echo "Checking where vcpkg installed files:"
-        dir vcpkg_installed\x64-windows\include /b
-        echo "Full path to xxhash.h:"
-        dir vcpkg_installed\x64-windows\include\xxhash.h /b
-        echo "Full path to openssl/err.h:"
-        dir vcpkg_installed\x64-windows\include\openssl\err.h /b
+      shell: cmd
+
+    - name: Copy vcpkg headers to project include dir
+      run: |
+        echo "Copying headers to project dir..."
+        if not exist boykisser-clan\include mkdir boykisser-clan\include
+        copy /Y vcpkg_installed\x64-windows\include\xxhash.h boykisser-clan\include\
+        copy /Y vcpkg_installed\x64-windows\include\zstd.h boykisser-clan\include\
+        xcopy /E /Y vcpkg_installed\x64-windows\include\openssl boykisser-clan\include\openssl\
+        echo "Verifying headers exist in project dir:"
+        dir boykisser-clan\include\xxhash.h
+        dir boykisser-clan\include\openssl\err.h
+        echo "Copying .lib files to project dir..."
+        if not exist boykisser-clan\lib mkdir boykisser-clan\lib
+        copy /Y vcpkg_installed\x64-windows\lib\libcrypto.lib boykisser-clan\lib\
+        copy /Y vcpkg_installed\x64-windows\lib\libssl.lib boykisser-clan\lib\
+        copy /Y vcpkg_installed\x64-windows\lib\zstd.lib boykisser-clan\lib\
+        copy /Y vcpkg_installed\x64-windows\lib\xxhash.lib boykisser-clan\lib\
+        dir boykisser-clan\lib\
       shell: cmd
 
     - name: Build C++ project
