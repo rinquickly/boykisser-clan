@@ -34,6 +34,7 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <AdditionalIncludeDirectories>$(vcpkgRoot)\installed\x64-windows\include;$(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    <AdditionalLibraryDirectories>$(vcpkgRoot)\installed\x64-windows\lib;$(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>

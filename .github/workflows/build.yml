@@ -25,16 +25,8 @@ jobs:
         git clone https://github.com/microsoft/vcpkg.git
         .\vcpkg\bootstrap-vcpkg.bat
         .\vcpkg\vcpkg install --triplet=x64-windows
-        echo "VCPKG_ROOT=%CD%\vcpkg" >> $GITHUB_ENV
+        .\vcpkg\vcpkg integrate install
       shell: cmd
-      
-    - name: Debug vcpkg
-      run: |
-        echo VCPKG_ROOT is: %VCPKG_ROOT%
-        dir %VCPKG_ROOT%\installed\x64-windows\include\
-      shell: cmd
-      env:
-        VCPKG_ROOT: ${{ env.VCPKG_ROOT }}
 
     - name: Restore NuGet packages
       run: |
@@ -43,7 +35,7 @@ jobs:
 
     - name: Build C++ project  
       run: |
-        msbuild boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /p:AdditionalIncludeDirectories="${{ env.VCPKG_ROOT }}\installed\x64-windows\include" /p:AdditionalLibraryDirectories="${{ env.VCPKG_ROOT }}\installed\x64-windows\lib" /verbosity:normal
+        msbuild boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /p:VcpkgEnableManifest=true /verbosity:normal
       shell: cmd
       working-directory: boykisser-clan
 
