@@ -27,9 +27,10 @@ jobs:
 
     - name: Build C++ project
       run: |
-        set INCLUDE=%CD%\vcpkg_installed\x64-windows\include;%INCLUDE%
-        set LIB=%CD%\vcpkg_installed\x64-windows\lib;%LIB%
         cd boykisser-clan
+        set INCLUDE=%CD%\..\vcpkg_installed\x64-windows\include;%INCLUDE%
+        set LIB=%CD%\..\vcpkg_installed\x64-windows\lib;%LIB%
+        echo INCLUDE=%INCLUDE%
         msbuild boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /verbosity:detailed
       shell: cmd
 
