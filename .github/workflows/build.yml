@@ -22,8 +22,7 @@ jobs:
       run: |
         git clone https://github.com/microsoft/vcpkg.git
         .\vcpkg\bootstrap-vcpkg.bat
-        cd boykisser-clan
-        ..\vcpkg\vcpkg install --triplet=x64-windows
+        .\vcpkg\vcpkg install --triplet=x64-windows
       shell: cmd
 
     - name: Build C++ project
