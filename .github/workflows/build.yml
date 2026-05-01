@@ -23,6 +23,10 @@ jobs:
         git clone https://github.com/microsoft/vcpkg.git
         .\vcpkg\bootstrap-vcpkg.bat
         .\vcpkg\vcpkg install openssl:x64-windows zstd:x64-windows xxhash:x64-windows
+        echo "Verifying xxhash.h exists:"
+        dir vcpkg_installed\x64-windows\include\xxhash.h
+        echo "Verifying openssl/err.h exists:"
+        dir vcpkg_installed\x64-windows\include\openssl\err.h
       shell: cmd
 
     - name: Build C++ project
