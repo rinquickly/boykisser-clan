@@ -1,0 +1,52 @@
+name: Build boykisser-clan
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+      
+    - name: Setup vcpkg
+      run: |
+        git clone https://github.com/microsoft/vcpkg.git
+        .\vcpkg\bootstrap-vcpkg.bat
+        .\vcpkg\vcpkg integrate install
+      shell: cmd
+      
+    - name: Restore NuGet packages
+      run: |
+        nuget restore boykisser-clan.sln
+      shell: cmd
+      
+    - name: Build solution
+      run: |
+        msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /verbosity:normal
+      shell: cmd
+      
+    - name: Upload boykisser-clan.exe
+      uses: actions/upload-artifact@v4
+      with:
+        name: boykisser-clan-exe
+        path: |
+          **/x64/Release/*.exe
+          **/Release/*.exe
+          
+    - name: Upload boykisser-clanUI
+      uses: actions/upload-artifact@v4
+      with:
+        name: boykisser-clanUI-exe
+        path: |
+          boykisser-clanUI/bin/Release/**/*.exe
+          boykisser-clanUI/bin/x64/Release/**/*.exe
