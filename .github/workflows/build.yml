@@ -22,6 +22,7 @@ jobs:
       run: |
         git clone https://github.com/microsoft/vcpkg.git
         .\vcpkg\bootstrap-vcpkg.bat
+        echo VCPKG_ROOT=%CD%\vcpkg >> %GITHUB_ENV%
         .\vcpkg\vcpkg install --triplet=x64-windows
       shell: cmd
 
@@ -32,10 +33,10 @@ jobs:
 
     - name: Build solution
       run: |
-        msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /p:VcpkgCMakeProvider=Enabled /verbosity:normal
+        msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /verbosity:normal
       shell: cmd
       env:
-        VCPKG_ROOT: ${{ github.workspace }}\vcpkg
+        VCPKG_ROOT: ${{ env.VCPKG_ROOT }}
       
     - name: Create Release
       id: create_release
@@ -45,7 +46,7 @@ jobs:
         name: Build ${{ github.run_number }}
         files: |
           boykisser-clan/build/Release/boykisser-clan.exe
-          boykisserclan/build/Release/net8.0-windows/boykisserclan.exe
-          boykisserclan/build/Release/net8.0-windows/boykisserclan.dll
+          boykisserclan/build/Release/net8.0-windows/boykisser-clan.exe
+          boykisserclan/build/Release/net8.0-windows/boykisser-clan.dll
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
