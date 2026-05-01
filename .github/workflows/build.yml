@@ -20,17 +20,14 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
       
-    - name: Setup vcpkg
+    - name: Setup vcpkg and install dependencies
       run: |
         git clone https://github.com/microsoft/vcpkg.git
         .\vcpkg\bootstrap-vcpkg.bat
+        set "VCPKG_ROOT=%CD%\vcpkg"
+        cd boykisser-clan
+        ..\vcpkg\vcpkg install --triplet=x64-windows
       shell: cmd
-
-    - name: Install vcpkg dependencies
-      run: |
-        .\vcpkg\vcpkg install --triplet=x64-windows
-      shell: cmd
-      working-directory: boykisser-clan
 
     - name: Restore NuGet packages
       run: |
