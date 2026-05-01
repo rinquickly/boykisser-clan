@@ -36,7 +36,7 @@ jobs:
 
     - name: Build C++ project
       run: |
-        msbuild boykisser-clan\boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /p:AdditionalIncludeDirectories="${{ env.VCPKG_ROOT }}\installed\x64-windows\include" /verbosity:normal
+        msbuild boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /p:VcpkgEnableManifest=true /verbosity:normal
       shell: cmd
       working-directory: boykisser-clan
 
