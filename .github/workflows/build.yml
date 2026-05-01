@@ -24,8 +24,6 @@ jobs:
         .\vcpkg\bootstrap-vcpkg.bat
         cd boykisser-clan
         ..\vcpkg\vcpkg install --triplet=x64-windows
-        echo "Verifying vcpkg_installed exists:"
-        dir vcpkg_installed
       shell: cmd
 
     - name: Build C++ project
