@@ -35,18 +35,16 @@ jobs:
         msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /verbosity:normal
       shell: cmd
       
-    - name: Upload boykisser-clan.exe
-      uses: actions/upload-artifact@v4
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v2
       with:
-        name: boykisser-clan-exe
-        path: |
+        tag_name: v${{ github.run_number }}
+        name: Build ${{ github.run_number }}
+        files: |
           **/x64/Release/*.exe
           **/Release/*.exe
-          
-    - name: Upload boykisser-clanUI
-      uses: actions/upload-artifact@v4
-      with:
-        name: boykisser-clanUI-exe
-        path: |
           boykisser-clanUI/bin/Release/**/*.exe
           boykisser-clanUI/bin/x64/Release/**/*.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
