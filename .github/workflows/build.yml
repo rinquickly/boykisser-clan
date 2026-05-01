@@ -35,7 +35,7 @@ jobs:
 
     - name: Build solution
       run: |
-        msbuild boykisser-clan\boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /p:VcpkgEnableManifest=true /verbosity:detailed
+        msbuild boykisser-clan\boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /p:AdditionalIncludeDirectories="%CD%\vcpkg_installed\x64-windows\include" /p:AdditionalLibraryDirectories="%CD%\vcpkg_installed\x64-windows\lib" /verbosity:detailed
       shell: cmd
 
     - name: Build C# project
