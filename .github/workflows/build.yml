@@ -23,18 +23,21 @@ jobs:
         git clone https://github.com/microsoft/vcpkg.git
         .\vcpkg\bootstrap-vcpkg.bat
         .\vcpkg\vcpkg install openssl:x64-windows zstd:x64-windows xxhash:x64-windows
-        echo "Verifying xxhash.h exists:"
-        dir vcpkg_installed\x64-windows\include\xxhash.h
-        echo "Verifying openssl/err.h exists:"
-        dir vcpkg_installed\x64-windows\include\openssl\err.h
+      shell: cmd
+
+    - name: Copy vcpkg headers to project include dir
+      run: |
+        xcopy /E /Y vcpkg_installed\x64-windows\include\openssl boykisser-clan\include\openssl\
+        copy /Y vcpkg_installed\x64-windows\include\xxhash.h boykisser-clan\include\xxhash.h
+        copy /Y vcpkg_installed\x64-windows\include\zstd.h boykisser-clan\include\zstd.h
+        echo "Verifying headers copied:"
+        dir boykisser-clan\include\openssl\err.h
+        dir boykisser-clan\include\xxhash.h
       shell: cmd
 
     - name: Build C++ project
       run: |
         cd boykisser-clan
-        set INCLUDE=%CD%\..\vcpkg_installed\x64-windows\include;%INCLUDE%
-        set LIB=%CD%\..\vcpkg_installed\x64-windows\lib;%LIB%
-        echo INCLUDE=%INCLUDE%
         msbuild boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /verbosity:detailed
       shell: cmd
 
