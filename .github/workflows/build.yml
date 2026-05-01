@@ -28,12 +28,15 @@ jobs:
     - name: Build C++ project
       run: |
         cd boykisser-clan
+        echo "Setting CL and LIB environment variables..."
         set CL=/I"..\vcpkg_installed\x64-windows\include"
         set LIB=..\vcpkg_installed\x64-windows\lib;%LIB%
-        echo "CL=%CL%"
-        echo "LIB=%LIB%"
+        echo CL=%CL%
+        echo LIB=%LIB%
+        echo "Verifying include files exist:"
         dir ..\vcpkg_installed\x64-windows\include\xxhash.h
         dir ..\vcpkg_installed\x64-windows\include\openssl\err.h
+        echo "Starting build..."
         msbuild boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /verbosity:detailed
       shell: cmd
 
