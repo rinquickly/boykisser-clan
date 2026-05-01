@@ -18,26 +18,17 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
       
-    - name: Setup vcpkg and install dependencies
+    - name: Setup vcpkg
       run: |
         git clone https://github.com/microsoft/vcpkg.git
         .\vcpkg\bootstrap-vcpkg.bat
-        .\vcpkg\vcpkg install openssl:x64-windows zstd:x64-windows xxhash:x64-windows
       shell: cmd
 
-    - name: Build C++ project
+    - name: Build with CMake + vcpkg
       run: |
         cd boykisser-clan
-        echo "Setting CL and LIB environment variables..."
-        set CL=/I"..\vcpkg_installed\x64-windows\include"
-        set LIB=..\vcpkg_installed\x64-windows\lib;%LIB%
-        echo CL=%CL%
-        echo LIB=%LIB%
-        echo "Verifying include files exist:"
-        dir ..\vcpkg_installed\x64-windows\include\xxhash.h
-        dir ..\vcpkg_installed\x64-windows\include\openssl\err.h
-        echo "Starting build..."
-        msbuild boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /verbosity:detailed
+        cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE="%CD%\..\vcpkg\scripts\buildsystems\vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows
+        cmake --build build --config Release --verbose
       shell: cmd
 
     - name: Build C# project
