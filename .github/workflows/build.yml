@@ -41,9 +41,9 @@ jobs:
         nuget restore boykisser-clan.sln
       shell: cmd
 
-    - name: Build C++ project
+    - name: Build C++ project  
       run: |
-        msbuild boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /p:VcpkgEnableManifest=true /verbosity:normal
+        msbuild boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /p:AdditionalIncludeDirectories="${{ env.VCPKG_ROOT }}\installed\x64-windows\include" /p:AdditionalLibraryDirectories="${{ env.VCPKG_ROOT }}\installed\x64-windows\lib" /verbosity:normal
       shell: cmd
       working-directory: boykisser-clan
 
