@@ -33,11 +33,10 @@ jobs:
         nuget restore boykisser-clan.sln
       shell: cmd
 
-    - name: Build C++ project
+    - name: Build solution
       run: |
-        msbuild boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /p:AdditionalIncludeDirectories="%VCPKG_ROOT%\installed\x64-windows\include" /p:AdditionalLibraryDirectories="%VCPKG_ROOT%\installed\x64-windows\lib" /verbosity:detailed
+        msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /p:VcpkgEnableManifest=true /verbosity:detailed
       shell: cmd
-      working-directory: boykisser-clan
 
     - name: Build C# project
       run: |
