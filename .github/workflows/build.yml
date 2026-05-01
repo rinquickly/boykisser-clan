@@ -25,32 +25,15 @@ jobs:
         .\vcpkg\vcpkg install openssl:x64-windows zstd:x64-windows xxhash:x64-windows
       shell: cmd
 
-    - name: Copy vcpkg headers and libs to project dir
-      run: |
-        echo "Current directory: %CD%"
-        echo "Listing vcpkg_installed:"
-        dir vcpkg_installed\x64-windows\include\xxhash.h
-        dir vcpkg_installed\x64-windows\include\openssl\err.h
-        echo "Copying headers..."
-        if not exist boykisser-clan\include mkdir boykisser-clan\include
-        copy /Y vcpkg_installed\x64-windows\include\xxhash.h boykisser-clan\include\
-        copy /Y vcpkg_installed\x64-windows\include\zstd.h boykisser-clan\include\
-        xcopy /E /Y vcpkg_installed\x64-windows\include\openssl boykisser-clan\include\openssl\
-        echo "Verifying headers in project dir:"
-        dir boykisser-clan\include\xxhash.h
-        dir boykisser-clan\include\openssl\err.h
-        echo "Copying libs..."
-        if not exist boykisser-clan\lib mkdir boykisser-clan\lib
-        copy /Y vcpkg_installed\x64-windows\lib\libcrypto.lib boykisser-clan\lib\
-        copy /Y vcpkg_installed\x64-windows\lib\libssl.lib boykisser-clan\lib\
-        copy /Y vcpkg_installed\x64-windows\lib\zstd.lib boykisser-clan\lib\
-        copy /Y vcpkg_installed\x64-windows\lib\xxhash.lib boykisser-clan\lib\
-        dir boykisser-clan\lib\
-      shell: cmd
-
     - name: Build C++ project
       run: |
         cd boykisser-clan
+        set CL=/I"..\vcpkg_installed\x64-windows\include"
+        set LIB=..\vcpkg_installed\x64-windows\lib;%LIB%
+        echo "CL=%CL%"
+        echo "LIB=%LIB%"
+        dir ..\vcpkg_installed\x64-windows\include\xxhash.h
+        dir ..\vcpkg_installed\x64-windows\include\openssl\err.h
         msbuild boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /verbosity:detailed
       shell: cmd
 
