@@ -23,13 +23,12 @@ jobs:
         git clone https://github.com/microsoft/vcpkg.git
         .\vcpkg\bootstrap-vcpkg.bat
         .\vcpkg\vcpkg install openssl:x64-windows zstd:x64-windows xxhash:x64-windows
-        echo "Checking vcpkg_installed:"
-        dir vcpkg_installed\x64-windows\include\openssl
-        dir vcpkg_installed\x64-windows\include\xxhash.h
       shell: cmd
 
     - name: Build C++ project
       run: |
+        set INCLUDE=%CD%\vcpkg_installed\x64-windows\include;%INCLUDE%
+        set LIB=%CD%\vcpkg_installed\x64-windows\lib;%LIB%
         cd boykisser-clan
         msbuild boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /verbosity:detailed
       shell: cmd
