@@ -26,15 +26,12 @@
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <Import Project="..\vcpkg\scripts\buildsystems\msbuild\vcpkg.props" Condition="exists('..\vcpkg\scripts\buildsystems\msbuild\vcpkg.props')" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <AdditionalIncludeDirectories>$(vcpkgRoot)\installed\x64-windows\include;$(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    <AdditionalLibraryDirectories>$(vcpkgRoot)\installed\x64-windows\lib;$(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
