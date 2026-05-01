@@ -22,7 +22,6 @@ jobs:
       run: |
         git clone https://github.com/microsoft/vcpkg.git
         .\vcpkg\bootstrap-vcpkg.bat
-        set VCPKG_ROOT=%CD%\vcpkg
         .\vcpkg\vcpkg install --triplet=x64-windows
       shell: cmd
 
@@ -31,23 +30,9 @@ jobs:
         nuget restore boykisser-clan.sln
       shell: cmd
 
-    - name: Build C++ project
-      run: |
-        set VCPKG_ROOT=%CD%\vcpkg
-        msbuild boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /verbosity:normal
-      shell: cmd
-      working-directory: boykisser-clan
-
-    - name: Build C# project
-      run: |
-        msbuild ../boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /t:boykisserclan /verbosity:normal
-      shell: cmd
-      working-directory: boykisserclan
-
     - name: Build solution
       run: |
-        set VCPKG_ROOT=%CD%\vcpkg
-        msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /verbosity:normal
+        msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /p:VcpkgEnableManifest=true /verbosity:normal
       shell: cmd
       
     - name: Create Release
