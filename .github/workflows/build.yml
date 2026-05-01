@@ -22,9 +22,12 @@ jobs:
       run: |
         git clone https://github.com/microsoft/vcpkg.git
         .\vcpkg\bootstrap-vcpkg.bat
-        echo VCPKG_ROOT=%CD%\vcpkg >> %GITHUB_ENV%
         .\vcpkg\vcpkg install --triplet=x64-windows
       shell: cmd
+      
+    - name: Set VCPKG_ROOT
+      run: echo "VCPKG_ROOT=${{ github.workspace }}\vcpkg" >> $GITHUB_ENV
+      shell: bash
 
     - name: Restore NuGet packages
       run: |
@@ -33,7 +36,7 @@ jobs:
 
     - name: Build solution
       run: |
-        msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /verbosity:normal
+        msbuild boykisser-clan.sln /p:Configuration=Release /p:Platform=x64 /p:AdditionalIncludeDirectories="%VCPKG_ROOT%\installed\x64-windows\include" /verbosity:normal
       shell: cmd
       env:
         VCPKG_ROOT: ${{ env.VCPKG_ROOT }}
