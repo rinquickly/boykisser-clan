@@ -10,7 +10,7 @@ namespace boykisserclan
 {
 	public partial class ClientsWindow : Window
 	{
-		public string boykisser-clanVersion = "1.0.4";
+		public string boykisserclanVersion = "1.0.4";
 
 		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
 		public struct ClientInfo
@@ -20,16 +20,16 @@ namespace boykisserclan
 			public int id;
 		}
 
-		[DllImport("boykisser-clan.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("boykisserclan.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern void Initialize();
 
-		[DllImport("boykisser-clan.dll", CallingConvention = CallingConvention.Cdecl)]
+		[DllImport("boykisserclan.dll", CallingConvention = CallingConvention.Cdecl)]
 		private static extern IntPtr GetClients();
 
-		[DllImport("boykisser-clan.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		[DllImport("boykisserclan.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
 		private static extern void Execute(byte[] scriptSource, string[] clientUsers, int numUsers);
 
-		[DllImport("boykisser-clan.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+		[DllImport("boykisserclan.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
 		private static extern IntPtr Compilable(byte[] scriptSource);
 
 		private readonly DispatcherTimer _timer;
@@ -54,13 +54,13 @@ namespace boykisserclan
 			try
 			{
 				using var client = new HttpClient();
-				string latestVersion = await client.GetStringAsync("https://rizve.us.to/boykisser-clan/LatestVersion");
-				if (latestVersion != boykisser-clanVersion)
+				string latestVersion = await client.GetStringAsync("https://rizve.us.to/boykisserclan/LatestVersion");
+				if (latestVersion != boykisserclanVersion)
 				{
-					MessageBox.Show($"The current version {boykisser-clanVersion} is outdated.\n\nPlease download the latest version of boykisser-clan ({latestVersion}) here: https://github.com/Riz-ve/boykisser-clan/releases", "Outdated boykisser-clan version", MessageBoxButton.OK, MessageBoxImage.Warning);
+					MessageBox.Show($"The current version {boykisserclanVersion} is outdated.\n\nPlease download the latest version of boykisserclan ({latestVersion}) here: https://github.com/Riz-ve/boykisserclan/releases", "Outdated boykisserclan version", MessageBoxButton.OK, MessageBoxImage.Warning);
 					Application.Current.Shutdown();
 				}
-				SupportedVersion = await client.GetStringAsync("https://rizve.us.to/boykisser-clan/SupportedVersion");
+				SupportedVersion = await client.GetStringAsync("https://rizve.us.to/boykisserclan/SupportedVersion");
 			}
 			catch (HttpRequestException e)
 			{
@@ -141,7 +141,7 @@ namespace boykisserclan
 			}
 			if (SupportedVersion != client.version)
 			{
-				MessageBox.Show($"boykisser-clan might not be compatible on the client {client.name} with {client.version}\n\nSupported version: {SupportedVersion}\n\nClick OK to continue using boykisser-clan.", "Version Mismatch", MessageBoxButton.OK, MessageBoxImage.Warning);
+				MessageBox.Show($"boykisserclan might not be compatible on the client {client.name} with {client.version}\n\nSupported version: {SupportedVersion}\n\nClick OK to continue using boykisserclan.", "Version Mismatch", MessageBoxButton.OK, MessageBoxImage.Warning);
 			}
 		}
 
