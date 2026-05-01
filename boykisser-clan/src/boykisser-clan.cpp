@@ -26,17 +26,17 @@ static void newClient(DWORD pid) {
 static void init() {
     DWORD CurrentPID = GetCurrentProcessId();
 
-    std::vector<DWORD> boykisserClanPIDs = GetProcessIDsByName(L"boykisser-clan.exe");
-    std::vector<DWORD> boykisserClanUIPIDs = GetProcessIDsByName(L"boykisser-clanUI.exe");
+    std::vector<DWORD> boykisserclanPIDs = GetProcessIDsByName(L"boykisserclan.exe");
+    std::vector<DWORD> boykisserclanUIPIDs = GetProcessIDsByName(L"boykisserclanUI.exe");
 
-    boykisserClanPIDs.insert(boykisserClanPIDs.end(), boykisserClanUIPIDs.begin(), boykisserClanUIPIDs.end());
+    boykisserclanPIDs.insert(boykisserclanPIDs.end(), boykisserclanUIPIDs.begin(), boykisserclanUIPIDs.end());
 
-    for (const DWORD& pid : boykisserClanPIDs) { // Terminate existing boykisser-clan processes
+    for (const DWORD& pid : boykisserclanPIDs) { // Terminate existing boykisserclan processes
         if (pid == CurrentPID)
             continue;
-        HANDLE hboykisser-clan = OpenProcess(PROCESS_TERMINATE, FALSE, pid);
-        if (hboykisser-clan)
-            TerminateProcess(hboykisser-clan, 0);
+        HANDLE hboykisserclan = OpenProcess(PROCESS_TERMINATE, FALSE, pid);
+        if (hboykisserclan)
+            TerminateProcess(hboykisserclan, 0);
     }
 
     while (true) {
@@ -85,7 +85,7 @@ extern "C" {
         /*
         FILE* conOut;
         AllocConsole();
-        SetConsoleTitleA("boykisser-clan");
+        SetConsoleTitleA("boykisserclan");
         freopen_s(&conOut, "CONOUT$", "w", stdout);
         freopen_s(&conOut, "CONOUT$", "w", stderr);
         */

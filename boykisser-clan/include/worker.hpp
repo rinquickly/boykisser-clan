@@ -40,7 +40,7 @@ namespace offsets {
     constexpr std::uintptr_t ObjectValue = 0xc8;
 }
 
-const std::string_view boykisser-clan_Version = "1.0.4";
+const std::string_view boykisserclan_Version = "1.0.4";
 
 template<typename T>
 T read_memory(std::uintptr_t address, HANDLE handle);

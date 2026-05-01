@@ -46,7 +46,7 @@ static void activate_console() {
 	console_active = true;
 
 	AllocConsole();
-	SetConsoleTitleA("boykisser-clan");
+	SetConsoleTitleA("boykisserclan");
 	FILE* pCout;
 	freopen_s(&pCout, "CONOUT$", "w", stdout);
 	freopen_s(&pCout, "CONIN$", "r", stdin);
@@ -500,8 +500,8 @@ static void serve(Response& res, const json& body) {
 
 	if (cType == "ax") { // get autoexec contents
 		std::string content;
-		std::filesystem::path boykisserClanDir = std::filesystem::current_path().parent_path();
-		std::filesystem::path autoexecDir = boykisserClanDir / "autoexec";
+		std::filesystem::path boykisserclanDir = std::filesystem::current_path().parent_path();
+		std::filesystem::path autoexecDir = boykisserclanDir / "autoexec";
 		if (!std::filesystem::exists(autoexecDir)) {
 			std::filesystem::create_directory(autoexecDir);
 		}

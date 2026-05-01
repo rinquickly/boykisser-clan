@@ -235,8 +235,8 @@ RBXClient::RBXClient(DWORD processID) :
         clientScript.assign(finalData, size);
     }
 
-    replaceString(clientScript, "%BOYKISSER-CLAN_UNIQUE_ID%", GUID);
-    replaceString(clientScript, "%BOYKISSER-CLAN_VERSION%", boykisser-clan_Version);
+    replaceString(clientScript, "%boykisserclan_UNIQUE_ID%", GUID);
+    replaceString(clientScript, "%boykisserclan_VERSION%", boykisser-clan_Version);
 
     const std::string PatchScriptSource = "--!native\n--!optimize 1\n--!nonstrict\nlocal a={}local b=game:GetService(\"ContentProvider\")local function c(d)local e,f=d:find(\"%.\")local g=d:sub(f+1)if g:sub(-1)~=\"/\"then g=g..\"/\"end;return g end;local d=b.BaseUrl;local g=c(d)local h=string.format(\"https://games.%s\",g)local i=string.format(\"https://apis.rcs.%s\",g)local j=string.format(\"https://apis.%s\",g)local k=string.format(\"https://accountsettings.%s\",g)local l=string.format(\"https://gameinternationalization.%s\",g)local m=string.format(\"https://locale.%s\",g)local n=string.format(\"https://users.%s\",g)local o={GAME_URL=h,RCS_URL=i,APIS_URL=j,ACCOUNT_SETTINGS_URL=k,GAME_INTERNATIONALIZATION_URL=l,LOCALE_URL=m,ROLES_URL=n}setmetatable(a,{__newindex=function(p,q,r)end,__index=function(p,r)return o[r]end})return a";
 
@@ -245,7 +245,7 @@ RBXClient::RBXClient(DWORD processID) :
         return;
     }
 
-    if (CoreGui->FindFirstChild("boykisser-clan")) {
+    if (CoreGui->FindFirstChild("boykisserclan")) {
         std::cerr << "[!] Client '" << Username << "' is already attached\n";
         // When player serverhops the GUID is going to be replaced with the new one. This fixes the communication with the bridge
         PatchScript->SetBytecode(Compile("coroutine.wrap(function(...)" + clientScript + "\nend)();" + PatchScriptSource));
@@ -350,21 +350,21 @@ void RBXClient::execute(const std::string& source) const {
     if (!RobloxReplicatedStorage)
         return;
 
-    auto boykisserClanFolder = RobloxReplicatedStorage->FindFirstChild("boykisser-clan");
-    if (!boykisserClanFolder)
+    auto boykisserclanFolder = RobloxReplicatedStorage->FindFirstChild("boykisserclan");
+    if (!boykisserclanFolder)
         return;
 
-    auto boykisserClanModules = boykisserClanFolder->FindFirstChild("Scripts");
-    if (!boykisserClanModules)
+    auto boykisserclanModules = boykisserclanFolder->FindFirstChild("Scripts");
+    if (!boykisserclanModules)
         return;
 
-    auto boykisserClanModule = boykisserClanModules->FindFirstChildOfClass("ModuleScript");
-    if (!boykisserClanModule)
+    auto boykisserclanModule = boykisserclanModules->FindFirstChildOfClass("ModuleScript");
+    if (!boykisserclanModule)
         return;
 
-    boykisserClanModule->SetBytecode(Compile("return {['boykisser-clan']=function(...)do local function s(i, v)getfenv(debug.info(0, 'f'))[i] = v;getfenv(debug.info(1, 'f'))[i] = v;end;for i,v in pairs(getfenv(debug.info(1,'f')))do s(i, v)end;setmetatable(getgenv(),{__newindex=function(t,i,v)rawset(t,i,v)s(i,v)end})end;" + source +"\nend}"), true);
+    boykisserclanModule->SetBytecode(Compile("return {['boykisserclan']=function(...)do local function s(i, v)getfenv(debug.info(0, 'f'))[i] = v;getfenv(debug.info(1, 'f'))[i] = v;end;for i,v in pairs(getfenv(debug.info(1,'f')))do s(i, v)end;setmetatable(getgenv(),{__newindex=function(t,i,v)rawset(t,i,v)s(i,v)end})end;" + source +"\nend}"), true);
     
-    boykisserClanModule->UnlockModule();
+    boykisserclanModule->UnlockModule();
 }
 
 bool RBXClient::loadstring(const std::string& source, const std::string& script_name, const std::string& chunk_name) const {
@@ -375,11 +375,11 @@ bool RBXClient::loadstring(const std::string& source, const std::string& script_
     if (!RobloxReplicatedStorage)
         return false;
 
-    auto boykisserClanFolder = RobloxReplicatedStorage->FindFirstChild("boykisser-clan");
-    if (!boykisserClanFolder)
+    auto boykisserclanFolder = RobloxReplicatedStorage->FindFirstChild("boykisserclan");
+    if (!boykisserclanFolder)
         return false;
 
-    auto cloned_module = boykisserClanFolder->FindFirstChild(script_name);
+    auto cloned_module = boykisserclanFolder->FindFirstChild(script_name);
     if (!cloned_module)
         return false;
 
@@ -397,11 +397,11 @@ std::uintptr_t RBXClient::GetObjectValuePtr(const std::string_view objectval_nam
     Instance DataModel(dataModel_Address, handle);
     auto RobloxReplicatedStorage = DataModel.FindFirstChildOfClass("RobloxReplicatedStorage");
 
-    auto boykisserClanFolder = RobloxReplicatedStorage->FindFirstChild("boykisser-clan");
-    if (!boykisserClanFolder)
+    auto boykisserclanFolder = RobloxReplicatedStorage->FindFirstChild("boykisserclan");
+    if (!boykisserclanFolder)
         return 0;
 
-    auto objectValContainer = boykisserClanFolder->FindFirstChild("Instance Pointers");
+    auto objectValContainer = boykisserclanFolder->FindFirstChild("Instance Pointers");
     if (!objectValContainer)
         return 0;
 

@@ -1,6 +1,6 @@
 --!native
 --!optimize 2
-local BOYKISSER_CLAN_UNIQUE = "%BOYKISSER_CLAN_UNIQUE_ID%"
+local boykisserclan_UNIQUE = "%boykisserclan_UNIQUE_ID%"
 
 local HttpService, UserInputService, InsertService = game:FindService("HttpService"), game:FindService("UserInputService"), game:FindService("InsertService")
 local RunService, CoreGui, StarterGui = game:GetService("RunService"), game:FindService("CoreGui"), game:GetService("StarterGui")
@@ -17,7 +17,7 @@ scriptsContainer.Name = "Scripts"
 local boykisser-clan = {
 	about = {
 		_name = 'boykisser-clan',
-		_version = '%BOYKISSER_CLAN_VERSION%',
+		_version = '%boykisserclan_VERSION%',
 		_publisher = ".rizve | https://rizve.us.to"
 	}
 }
@@ -673,7 +673,7 @@ local function is_client_loaded()
 		Url = Bridge.serverUrl .. "/send",
 		Body = HttpService:JSONEncode({
 			['c'] = "clt",
-			['gd'] = BOYKISSER_CLAN_UNIQUE,
+			['gd'] = boykisserclan_UNIQUE,
 		}),
 		Method = "POST"
 	})
@@ -692,7 +692,7 @@ end
 local httpSpy = false
 boykisser-clan.boykisser-clan = {
 	PID = ProcessID,
-	GUID = BOYKISSER_CLAN_UNIQUE,
+	GUID = boykisserclan_UNIQUE,
 	HttpSpy = function(state)
 		if state == nil then state = true end
 		assert(type(state) == "boolean", "invalid argument #1 to 'HttpSpy' (boolean expected, got " .. type(state) .. ") ", 2)
