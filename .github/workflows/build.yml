@@ -33,10 +33,9 @@ jobs:
         nuget restore boykisser-clan.sln
       shell: cmd
 
-    - name: Build C++ with CMake
+    - name: Build C++ project
       run: |
-        cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE="%VCPKG_ROOT%\scripts\buildsystems\vcpkg.cmake" -DVCPKG_TARGET_TRIPLET=x64-windows
-        cmake --build build --config Release
+        msbuild boykisser-clan.vcxproj /p:Configuration=Release /p:Platform=x64 /p:AdditionalIncludeDirectories="%VCPKG_ROOT%\installed\x64-windows\include" /p:AdditionalLibraryDirectories="%VCPKG_ROOT%\installed\x64-windows\lib" /verbosity:detailed
       shell: cmd
       working-directory: boykisser-clan
 
