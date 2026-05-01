@@ -23,6 +23,12 @@ jobs:
         git clone https://github.com/microsoft/vcpkg.git
         .\vcpkg\bootstrap-vcpkg.bat
         .\vcpkg\vcpkg install openssl:x64-windows zstd:x64-windows xxhash:x64-windows
+        echo "Checking where vcpkg installed files:"
+        dir vcpkg_installed\x64-windows\include /b
+        echo "Full path to xxhash.h:"
+        dir vcpkg_installed\x64-windows\include\xxhash.h /b
+        echo "Full path to openssl/err.h:"
+        dir vcpkg_installed\x64-windows\include\openssl\err.h /b
       shell: cmd
 
     - name: Build C++ project
