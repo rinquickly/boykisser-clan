@@ -25,7 +25,8 @@ jobs:
         git clone https://github.com/microsoft/vcpkg.git
         .\vcpkg\bootstrap-vcpkg.bat
         .\vcpkg\vcpkg install --triplet=x64-windows
-        dir .\vcpkg\installed\x64-windows\include\
+        echo "VCPKG_ROOT=%CD%\vcpkg" >> $GITHUB_ENV
+        dir %CD%\vcpkg\installed\x64-windows\include\
       shell: cmd
 
     - name: Restore NuGet packages
